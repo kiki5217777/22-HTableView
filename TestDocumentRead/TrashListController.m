@@ -11,7 +11,7 @@
 
 @interface TrashListController ()
 {
-
+    NSArray *recipes;
 }
 
 @end
@@ -79,6 +79,7 @@
     
     if (_deleteAble == _backeAble) {
         printf("list look\n");
+        //[self showDetail];
     }
     else if(_backeAble){
         [readFile moveToWork:fileName];
@@ -90,6 +91,31 @@
         [readFile deleteFileWithName:fileName];
         [listData removeObjectAtIndex:indexPath.row];
         [oneCell removeFromSuperview];
+    }
+}
+
+-(void) showDetail
+{
+    UINavigationController *navController = [[UINavigationController alloc] init];
+    DetailViewController *rootView = [[DetailViewController alloc] init];
+    rootView.title = @"內容";
+
+    [navController pushViewController:rootView animated:YES];
+    //[navController pushViewController:rootView animated:YES];
+    //[self.view addSubview:navController.view];
+    //[self.view makeKeyAndVisible];
+    
+    //[self.navigationController pushViewController:secondView animated:YES];
+    //secondView.title = @"Second View";
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showDetail"]) {
+        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
+        DetailViewController *destViewController = segue.destinationViewController;
+        TrashCell *oneCell = [recipes objectAtIndex:indexPath.row];
+        destViewController.recptName = oneCell.label.text;
+        [destViewController showData];
     }
 }
 

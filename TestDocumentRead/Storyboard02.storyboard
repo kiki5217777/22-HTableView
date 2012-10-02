@@ -79,9 +79,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Tbk-w1-RBB" userLabel="filename">
-                                <rect key="frame" x="526" y="91" width="234" height="25"/>
+                                <rect key="frame" x="526" y="91" width="234" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -221,6 +221,7 @@
                                         <size key="customSize" width="218" height="150"/>
                                         <connections>
                                             <outlet property="label" destination="fVj-iH-GKP" id="wy6-IB-nIW"/>
+                                            <segue destination="Uvx-7d-ezc" kind="modal" identifier="showDetail" id="jl8-TH-Tlm"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -260,8 +261,59 @@
             </objects>
             <point key="canvasLocation" x="1006" y="-650"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="WWz-Uo-YO6">
+            <objects>
+                <viewController id="Uvx-7d-ezc" customClass="DetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xIB-RA-GnG">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="aUT-JM-GtL">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="詳細內容" id="ARw-7e-xOc">
+                                        <barButtonItem key="leftBarButtonItem" title="返回" id="YFJ-JV-f2P">
+                                            <connections>
+                                                <segue destination="66a-JQ-x92" kind="modal" id="AEs-hc-ezj"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="25" sectionHeaderHeight="10" sectionFooterHeight="5" id="Q4W-Nv-Z9g">
+                                <rect key="frame" x="0.0" y="106" width="575" height="898"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="0.53162902010000002" green="0.6807709354" blue="0.82262652849999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EAK-2v-y5s" userLabel="openFileName">
+                                <rect key="frame" x="291" y="64" width="200" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" label=""/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="openFileName" destination="EAK-2v-y5s" id="cdv-sS-Xgc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AeU-Ym-m8D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1947" y="-650"/>
+        </scene>
     </scenes>
     <classes>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="openFileName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="TrashCell" superclassName="UICollectionViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TrashCell.h"/>
             <relationships>

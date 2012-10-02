@@ -10,6 +10,7 @@
 #import "TrashCell.h"
 #import "FileOps.h"
 #import "PopViewController.h"
+#import "DetailViewController.h"
 
 @interface TrashListController : UICollectionViewController
 {

@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
+#import "ViewController2.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) ViewController *viewController;
+@property (strong, nonatomic) ViewController2 *viewController2;
+
+@property (strong, nonatomic) UINavigationController *navController;
+
 
 @end

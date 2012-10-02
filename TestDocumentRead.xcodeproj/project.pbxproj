@@ -17,6 +17,7 @@
 		847C812315B5603E0011286D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C812215B5603E0011286D /* ViewController.m */; };
 		847C815515B590E30011286D /* FileOps.m in Sources */ = {isa = PBXBuildFile; fileRef = 847C815415B590E30011286D /* FileOps.m */; };
 		84A114011600D66700B1423A /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A114001600D66700B1423A /* ViewController2.m */; };
+		B823356C161AF14C00E39655 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B823356B161AF14C00E39655 /* DetailViewController.m */; };
 		B8C5A3B415F60A4500EF4804 /* Storyboard02.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8C5A3B315F60A4500EF4804 /* Storyboard02.storyboard */; };
 		B8CFDD96161982F1003D8EF0 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8CFDD95161982F1003D8EF0 /* EasyTableView.m */; };
 		B8EC345C1614049D005C592B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8EC345B1614049D005C592B /* QuartzCore.framework */; };
@@ -45,6 +46,8 @@
 		847C815415B590E30011286D /* FileOps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileOps.m; sourceTree = "<group>"; };
 		84A113FF1600D66700B1423A /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
 		84A114001600D66700B1423A /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
+		B823356A161AF14C00E39655 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		B823356B161AF14C00E39655 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		B8C5A3B315F60A4500EF4804 /* Storyboard02.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard02.storyboard; sourceTree = "<group>"; };
 		B8CFDD94161982F1003D8EF0 /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EasyTableView.h; path = TestDocumentRead/filehandle/EasyTableView.h; sourceTree = "<group>"; };
 		B8CFDD95161982F1003D8EF0 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EasyTableView.m; path = TestDocumentRead/filehandle/EasyTableView.m; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				847C815215B590E30011286D /* filehandle */,
 				847C811B15B5603E0011286D /* AppDelegate.h */,
 				847C811C15B5603E0011286D /* AppDelegate.m */,
+				B823356A161AF14C00E39655 /* DetailViewController.h */,
+				B823356B161AF14C00E39655 /* DetailViewController.m */,
 				847C811E15B5603E0011286D /* MainStoryboard.storyboard */,
 				B8C5A3B315F60A4500EF4804 /* Storyboard02.storyboard */,
 				B8EC346C1614429A005C592B /* PopViewController.h */,
@@ -236,6 +241,7 @@
 				B8EC34FD16145BB1005C592B /* TrashCell.m in Sources */,
 				B8EC34FE16145BB1005C592B /* TrashListController.m in Sources */,
 				B8CFDD96161982F1003D8EF0 /* EasyTableView.m in Sources */,
+				B823356C161AF14C00E39655 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
