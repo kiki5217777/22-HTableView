@@ -73,13 +73,13 @@
 {
     NSLog(@"%d",indexPath.row);
     NSArray *cellArray = [cv visibleCells];
-    oneCell = [cellArray objectAtIndex:indexPath.row];
-    NSLog(@"%@",oneCell.label.text);
-    NSString *fileName = oneCell.label.text;
+    _oneCell = [cellArray objectAtIndex:indexPath.row];
+    NSLog(@"%@",_oneCell.label.text);
+    NSString *fileName = _oneCell.label.text;
     
     if (_deleteAble == _backeAble) {
         printf("list look\n");
-        selectFile = oneCell.label.text;
+        selectFile = _oneCell.label.text;
         NSLog(@"垃圾桶點到的檔案%@",selectFile);
         
         [self showDetail:selectFile];
@@ -87,13 +87,13 @@
     else if(_backeAble){
         [readFile moveToWork:fileName];
         [listData removeObjectAtIndex:indexPath.row];
-        [oneCell removeFromSuperview];
+        [_oneCell removeFromSuperview];
     }
     else if(_deleteAble){
         printf("list delete\n");
         [readFile deleteFileWithName:fileName];
         [listData removeObjectAtIndex:indexPath.row];
-        [oneCell removeFromSuperview];
+        [_oneCell removeFromSuperview];
     }
 }
 
@@ -162,14 +162,14 @@
             [readFile moveToWork:selectFile];
             index = [listData indexOfObject:selectFile];
             [listData removeObjectAtIndex:index];
-            [oneCell removeFromSuperview];
+            [_oneCell removeFromSuperview];
             break;
         case 2:
             NSLog(@"刪除");
             [readFile deleteFileWithName:selectFile];
             index = [listData indexOfObject:selectFile];
             [listData removeObjectAtIndex:index];
-            [oneCell removeFromSuperview];
+            [_oneCell removeFromSuperview];
             break;
         default:
             break;
