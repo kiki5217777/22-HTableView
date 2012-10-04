@@ -38,7 +38,7 @@
     //UILabel *lebel = [[UILabel alloc] init];
     //lebel.text = fileName;
     //NSLog(@"%@",recptName);
-    openFileName.text = @"tttet";
+    openFileName.text = recptName;
     printf("load");
     [super viewDidLoad];
 	// Do any additional setup after loading the view.

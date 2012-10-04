@@ -17,9 +17,11 @@
     NSMutableArray *listData;
     FileOps *readFile;
     UICollectionView *collectionView;
+    TrashCell *oneCell;
 }
 
 @property (nonatomic, retain) NSMutableArray *listData;
+@property (nonatomic, retain) NSString *selectFile;
 @property (nonatomic) BOOL deleteAble;
 @property (nonatomic) BOOL backeAble;
 @end

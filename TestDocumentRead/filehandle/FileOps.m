@@ -162,7 +162,25 @@
     filepath = nil;
     return txtInFile;
 }
-
+///---------------
+-(NSString *)readFromTrashWithName:(NSString*) name {
+    fileOpened = name;
+    filepath = [[NSString alloc]init];
+    NSError *error;
+    NSString *title;
+    filepath = [TRASH_PATH stringByAppendingPathComponent:name];
+    //NSString *txtInFile = [[NSString alloc] initWithContentsOfFile:filepath encoding:ASC error:&error];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:filepath];
+    NSLog(@"nsdata %@",data);
+    NSString *txtInFile = [[NSString alloc] initWithData:data encoding:ASC];
+    if(!txtInFile){
+        NSLog(@"Error reading file at %@\n%@",filepath, [error localizedFailureReason]);
+        UIAlertView *tellErr = [[UIAlertView alloc] initWithTitle:title message:@"Unable to get text from file" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil];
+        [tellErr show];
+    }
+    filepath = nil;
+    return txtInFile;
+}
 ////////////////////////////////////////////////////////////
 # pragma mark 移動檔案
 ////////////////////////////////////////////////////////////
@@ -207,11 +225,21 @@
 }
 
 -(BOOL) deleteFileWithName:(NSString*) name {
+    NSError *error;
     BOOL deleteSuccess;
     if (name) {
         NSLog(@"刪除檔案：%@", name);
-        NSError *error;
+        
         deleteSuccess = [fileMgr removeItemAtPath:[TRASH_PATH stringByAppendingPathComponent:name] error:&error];
+        
+        NSArray *temp = [name componentsSeparatedByString:@"."];
+        name = temp[0];
+        name = [name stringByAppendingString:IMG_TYPE];
+        NSLog(@"刪除檔案：%@", name);
+        deleteSuccess = [fileMgr removeItemAtPath:[IMG_PATH stringByAppendingPathComponent:name] error:&error];
+    }
+    if (!deleteSuccess) {
+        NSLog(@"Error writing file at %@\n%@",IMG_PATH, [error localizedFailureReason]);
     }
     return deleteSuccess;
 }
@@ -301,6 +329,25 @@
             [tellErr show];
         }
     }
+    return image;
+}
+
+//load image
+-(UIImage *) loadImageWithName:(NSString*)imgName{
+    
+    imageFilePath = [[NSString alloc]init];
+    UIImage *image;
+    NSArray *temp = [imgName componentsSeparatedByString:@"."];
+    imgName = temp[0];
+    imgName = [imgName stringByAppendingString:IMG_TYPE];
+    
+    NSArray *imagefileList =[self getImageFileList];
+    int index = [imagefileList indexOfObject:imgName];
+
+    NSLog(@"圖片列表%@",[imagefileList debugDescription]);
+    NSLog(@"圖片檔名%@ index %d",imgName, index);
+    
+    image = [self ReadFromImageFileWithName:index];
     return image;
 }
 

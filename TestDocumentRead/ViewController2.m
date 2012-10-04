@@ -94,5 +94,18 @@
         [trashList setBackgroundColor:RGBA(100, 0, 50, 0.5)];
     }
 }
+/*
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showDetail"]) {
+        //NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
+        DetailViewController *destViewController = segue.destinationViewController;
+        //TrashCell *oneCell = [recipes objectAtIndex:indexPath.row];
 
+        destViewController.recptName = trashListController.selectFile;
+        NSLog(@"第二頁 %@",trashListController.selectFile);
+        [destViewController showData];
+        printf("preparSetgue View2");
+    }
+}
+*/
 @end

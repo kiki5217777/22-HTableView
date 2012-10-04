@@ -54,5 +54,6 @@
 -(void) stringToimage:(NSMutableString*) textToImage;//string saved to image
 -(void) WriteToImageFile; //save image
 -(UIImage *) ReadFromImageFileWithName:(NSUInteger)index; //load image
+-(UIImage *) loadImageWithName:(NSString*)imgName;
 -(NSArray*) getImageFileList;//get imagefilelist
 @end

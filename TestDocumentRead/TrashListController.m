@@ -17,7 +17,7 @@
 @end
 
 @implementation TrashListController
-@synthesize listData;
+@synthesize listData, selectFile;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,13 +73,16 @@
 {
     NSLog(@"%d",indexPath.row);
     NSArray *cellArray = [cv visibleCells];
-    TrashCell *oneCell = [cellArray objectAtIndex:indexPath.row];
+    oneCell = [cellArray objectAtIndex:indexPath.row];
     NSLog(@"%@",oneCell.label.text);
     NSString *fileName = oneCell.label.text;
     
     if (_deleteAble == _backeAble) {
         printf("list look\n");
-        //[self showDetail];
+        selectFile = oneCell.label.text;
+        NSLog(@"垃圾桶點到的檔案%@",selectFile);
+        
+        [self showDetail:selectFile];
     }
     else if(_backeAble){
         [readFile moveToWork:fileName];
@@ -94,28 +97,82 @@
     }
 }
 
--(void) showDetail
+-(void) showDetail:(NSString*)sName
 {
-    UINavigationController *navController = [[UINavigationController alloc] init];
-    DetailViewController *rootView = [[DetailViewController alloc] init];
-    rootView.title = @"內容";
 
-    [navController pushViewController:rootView animated:YES];
-    //[navController pushViewController:rootView animated:YES];
-    //[self.view addSubview:navController.view];
-    //[self.view makeKeyAndVisible];
+    //初始化AlertView
+    //NSString *str = [readFile readFromFileWithName:sName];
+    //NSLog(@"%@",str);
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:sName
+                                                   message:@"\n"
+                          @"\n"
+                          @"\n"
+                          @"\n"
+                          @"\n"
+                          @"\n"
+
+                                                  delegate:self
+                                         cancelButtonTitle:@"取消"
+                                         otherButtonTitles:@"叫回",nil];
     
-    //[self.navigationController pushViewController:secondView animated:YES];
-    //secondView.title = @"Second View";
+    //这个属性继承自UIView，当一个视图中有多个AlertView时，可以用这个属性来区分
+    alert.tag = 0;
+    
+    //只读属性，看AlertView是否可见
+    NSLog(@"alert2:%d",alert.visible);
+    
+    //通过给定标题添加按钮
+    [alert addButtonWithTitle:@"刪除"];
+    
+    UIImageView *imgView = [[UIImageView alloc]initWithImage:[readFile loadImageWithName:sName]];
+    imgView.center = CGPointMake(110, 110);
+    
+    UIScrollView *scroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 250, 130)];
+    //scroll.backgroundColor = [UIColor blackColor];
+    scroll.center = CGPointMake(140, 100);
+    scroll.contentSize = imgView.frame.size;
+    [scroll setScrollEnabled:YES];
+    [scroll addSubview:imgView];
+    [alert addSubview:scroll];
+    
+    [alert setFrame:CGRectMake(0, 0, 400, 400)];
+    //按钮总数
+    NSLog(@"numberOfButtons:%d",alert.numberOfButtons);
+    
+    //获取指定索引的按钮的标题
+    NSLog(@"buttonTitleAtIndex:%@",[alert buttonTitleAtIndex:2]);
+    
+    //获得取消按钮的索引
+    NSLog(@"cancelButtonIndex:%d",alert.cancelButtonIndex);
+    
+    //获得第一个其他按钮的索引
+    NSLog(@"firstOtherButtonIndex:%d",alert.firstOtherButtonIndex);
+    
+    //显示AlertView
+    [alert show];
+    alert = Nil;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
-        DetailViewController *destViewController = segue.destinationViewController;
-        TrashCell *oneCell = [recipes objectAtIndex:indexPath.row];
-        destViewController.recptName = oneCell.label.text;
-        [destViewController showData];
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"单击第:%d",buttonIndex);
+    int index;
+    switch (buttonIndex) {
+        case 1:
+            NSLog(@"叫回");
+            [readFile moveToWork:selectFile];
+            index = [listData indexOfObject:selectFile];
+            [listData removeObjectAtIndex:index];
+            [oneCell removeFromSuperview];
+            break;
+        case 2:
+            NSLog(@"刪除");
+            [readFile deleteFileWithName:selectFile];
+            index = [listData indexOfObject:selectFile];
+            [listData removeObjectAtIndex:index];
+            [oneCell removeFromSuperview];
+            break;
+        default:
+            break;
     }
 }
 
