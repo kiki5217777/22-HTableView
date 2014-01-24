@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "menuCell.h"
 
 @interface MenuContentController : UITableViewController
-<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+
 {
     NSMutableArray *listData;
     NSMutableArray *selectedArray;

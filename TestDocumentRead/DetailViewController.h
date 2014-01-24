@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MenuContentController.h"
+#import "FileOps.h"
 
 @interface DetailViewController : UIViewController
 {
     NSString *recptName;
+    MenuContentController *menuController;
+    FileOps *fileMng;
 }
 @property (nonatomic, retain) NSString *recptName;
-@property (weak, nonatomic) IBOutlet UILabel *openFileName;
+@property (weak, nonatomic) IBOutlet UITableView *menuTable;
+-(IBAction) detailDone:(UIStoryboardSegue*)seque;
 
 -(void) showData;
 @end

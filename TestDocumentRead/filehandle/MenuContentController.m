@@ -9,7 +9,7 @@
 #import "MenuContentController.h"
 #define COLOR_SECLETED  RGBA( 0, 0, 50, 0.2)
 #define COLOR_UNSECLETED  RGBA(0, 0, 0, 1)
-#define TIME_LABEL_TAG 4
+#define TIME_LABEL_TAG 2
 
 @implementation MenuContentController
 @synthesize listData, selectedArray;
@@ -19,7 +19,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        
+        //listData = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"6",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",nil];
     }
     return self;
 }
@@ -83,16 +83,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"CustomCell";
+    printf("\n set cells");
+    static NSString *CellIdentifier = @"menuCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    menuCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         
+        cell = [[menuCell alloc] init];
         //UINib *nib = [UINib nibWithNibName:@"CustomCell" bundle:nil];
         //[tableView registerNib:nib forCellReuseIdentifier:CellIdentifier];
         //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        
+        //cell = [[menuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        /*
         UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(380, 0, 90, 20)];
         [timeLabel setTextAlignment:NSTextAlignmentRight];
         timeLabel.font = [UIFont fontWithName:@"Courier" size:15];
@@ -100,26 +103,34 @@
         [timeLabel setTag:TIME_LABEL_TAG];
         [cell.contentView addSubview:timeLabel];
         timeLabel = nil;
-        
+        */
         [cell.textLabel setFont:[UIFont fontWithName:@"Courier" size:18]];
         [cell.textLabel setBackgroundColor:[UIColor clearColor]];
     }
     //設定cell type
 
-    NSLog(@"%d",[[selectedArray objectAtIndex:[indexPath row]] intValue]);
-    //NSString *string = @"0";
-    if ([[selectedArray objectAtIndex:[indexPath row]] intValue] == 0) {
+    NSString *temp = (NSString*)[selectedArray objectAtIndex:[indexPath row]];
+    NSLog(@"selected array:%d",temp.intValue);
+
+    //NSLog(@"selected array:%@",[selectedArray description]);
+    
+    if (temp.intValue) {
         //cell.accessoryType = UITableViewCellAccessoryNone;
-        [cell.textLabel setTextColor:COLOR_UNSECLETED];
-        UILabel *timeLabel = (UILabel*) [cell viewWithTag:TIME_LABEL_TAG];
-        timeLabel.text = Nil;
+        
+        //UILabel *timeLabel = (UILabel*) [cell viewWithTag:TIME_LABEL_TAG];
+        //timeLabel.text = Nil;
+        [cell.textLabel setTextColor:COLOR_SECLETED];
+        //UILabel *timeLabel = (UILabel*) [cell viewWithTag:TIME_LABEL_TAG];
+        //timeLabel.text = [selectedArray objectAtIndex:[indexPath row]];
+        cell.timeLabel.text = [selectedArray objectAtIndex:indexPath.row];
     }
     else
     {
         //cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [cell.textLabel setTextColor:COLOR_SECLETED];
-        UILabel *timeLabel = (UILabel*) [cell viewWithTag:TIME_LABEL_TAG];
-        timeLabel.text = [selectedArray objectAtIndex:[indexPath row]];
+        [cell.textLabel setTextColor:COLOR_UNSECLETED];
+        cell.timeLabel.text = Nil;
+        //cell.timeLabel.text = [selectedArray objectAtIndex:[indexPath row]];
+        
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@" ,[listData objectAtIndex:indexPath.row]];
@@ -139,32 +150,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UITableViewCell *oneCell = [tableView cellForRowAtIndexPath: indexPath];
+    menuCell *oneCell = (menuCell*)[tableView cellForRowAtIndexPath:indexPath];
     
+    NSString *temp = (NSString*)[selectedArray objectAtIndex:[indexPath row]];
+    //NSLog(@"selected array:%d",temp.intValue);
     //if (oneCell.accessoryType == UITableViewCellAccessoryNone)
-    if([[selectedArray objectAtIndex:[indexPath row]] intValue] == 0)
+    if(temp.intValue)
+    {
+        //oneCell.accessoryType = UITableViewCellAccessoryNone;
+        [selectedArray replaceObjectAtIndex:[indexPath row] withObject:[NSNumber numberWithBool:NO]];
+        //NSLog(@"----selectedArray-----\n%@",[selectedArray description]);
+        [oneCell.textLabel setTextColor:COLOR_UNSECLETED];
+        /*
+        UILabel *timeLabel = (UILabel*) [oneCell viewWithTag:TIME_LABEL_TAG];
+        timeLabel.text = nil;
+        timeLabel = Nil;
+         */
+        oneCell.timeLabel.text = nil;
+    }
+    else  
     {
         //oneCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        NSLog(@"----selectedArray-----\n%@",[selectedArray description]);
+        //NSLog(@"----selectedArray-----\n%@",[selectedArray description]);
         [oneCell.textLabel setTextColor:COLOR_SECLETED];
         
         UILabel *timeLabel = (UILabel*) [oneCell viewWithTag:TIME_LABEL_TAG];
         timeLabel.text = [self getTime];
         [selectedArray replaceObjectAtIndex:[indexPath row] withObject:timeLabel.text];
         timeLabel = Nil;
-    }
-    else  
-    {
-        //oneCell.accessoryType = UITableViewCellAccessoryNone;
-        [selectedArray replaceObjectAtIndex:[indexPath row] withObject:[NSNumber numberWithBool:NO]];
-        NSLog(@"----selectedArray-----\n%@",[selectedArray description]);
-        [oneCell.textLabel setTextColor:COLOR_UNSECLETED];
         
-        UILabel *timeLabel = (UILabel*) [oneCell viewWithTag:TIME_LABEL_TAG];
-        timeLabel.text = nil;
-        timeLabel = Nil;
     }
-    NSLog(@"---------selected array-------\n%@",self.selectedArray);
+    //NSLog(@"---------selected array-------\n%@",self.selectedArray);
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

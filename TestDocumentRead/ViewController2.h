@@ -14,6 +14,11 @@
 {
     TrashListController *trashListController;
     FileOps *readFile;
+    NSString *selectFile;
+    
+    int done;
 }
+
 @property (weak, nonatomic) IBOutlet UICollectionView *trashList;
+@property (nonatomic) int done;
 @end

@@ -9,6 +9,7 @@
 #import "menuCell.h"
 
 @implementation menuCell
+@synthesize textLabel, timeLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

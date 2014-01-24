@@ -7,10 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#define HOME_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
-#define WORK_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Work"]
-#define TRASH_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Trash"]
-#define IMG_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Image"]
+
 #define FILE_NAME @"desk"
 #define FILE_TYPE @".p"
 #define IMG_TYPE @".png"
@@ -38,6 +35,7 @@
 -(void)WriteToNewFile:(NSMutableString *)textToWrite;
 -(NSString *) readFromFile;
 -(NSString *) readFromFileWithName:(NSString*) name;
+-(NSString *)readFromTrashWithName:(NSString*) name;
 -(NSString *) setFilename;
 
 -(int) numOfWorkFiles;

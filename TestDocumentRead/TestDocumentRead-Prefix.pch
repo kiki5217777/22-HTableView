@@ -17,3 +17,11 @@
 #define INTERFACE_IS_PHONE   ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
 #define TRASH_RDATA @"reload trashlist"
 #define RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+#define SPLITSTRING @"\n-&*()----------------()&&&&--------\n"
+
+#define HOME_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define WORK_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Work"]
+#define TRASH_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Trash"]
+#define IMG_PATH [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/Image"]
+
+//#define NSLog //NSLog

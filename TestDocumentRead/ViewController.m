@@ -14,6 +14,8 @@
 #define NUM_OF_CELLS			10
 #define TABLE_BACKGROUND_COLOR		[UIColor clearColor]
 
+
+
 @interface ViewController ()
 
 @end
@@ -31,6 +33,12 @@
 
 - (void)viewDidLoad
 {
+#ifdef M_TW
+    NSLog(@"notw");
+#else
+    NSLog(@"noEN");
+#endif
+    
     //初始化檔案管理
     readFile = [[FileOps alloc] init];
     
@@ -42,9 +50,6 @@
     if (menuController == nil) {
         menuController = [[MenuContentController alloc] init];
     }
-
-    //[fileListTable setDelegate:fileListController];
-	//[fileListTable setDataSource:fileListController];
     
     [menuTable setDelegate:menuController];
     [menuTable setDataSource:menuController];
@@ -132,27 +137,21 @@
     [files WriteToImageFile];
     [self showFileList];
 }
-//新建一個檔案，修改現有檔案內容
+//新建一個sample檔
 - (IBAction)saveFile:(id)sender {
-    //FileOps *files = [[FileOps alloc]init];
-    [self setMenuContent:[self.writeSomethigView.text mutableCopy]];
     
-    if ([menuController.listData count] != [menuController.selectedArray count]) {
-        [menuController populateSelectedArray];
-    }
+    NSString *filePath = [HOME_PATH stringByAppendingPathComponent:@"rec1.p"];
+    NSData *data2 = [NSData dataWithContentsOfFile:filePath];
+    NSString *string = [[NSString alloc] initWithData:data2 encoding:NSASCIIStringEncoding];
+    NSLog(@"%@",string);
     
-    NSMutableString *stringToWrite = [[self getRealContent:self.writeSomethigView.text] mutableCopy];
-    [stringToWrite appendFormat:@"%@%@", SPLITSTRING, [menuController.selectedArray componentsJoinedByString:@"\n"]];
-    NSLog(@"-----save File choiceToWrite-----\n%@", [menuController.selectedArray componentsJoinedByString:@"\n"]);
-    NSLog(@"-----save File stringToWrite-----\n%@", stringToWrite);
-    
-    writeSomethigView.text = [self getRealContent:stringToWrite];
-    [readFile WriteToStringFile:stringToWrite];
-    [readFile stringToimage:[writeSomethigView.text mutableCopy]];//turn string into image
-    [readFile WriteToImageFile];//save image
-    //顯示列表
+    FileOps *files = [[FileOps alloc]init];
+    [files WriteToNewFile:string.mutableCopy];
+    [files stringToimage:string.mutableCopy];
+    [files WriteToImageFile];
     [self showFileList];
-    stringToWrite = nil;
+
+    
 }
 //紀錄selected 選項
 -(void) saveMenuChoice
@@ -222,7 +221,8 @@
         
         NSMutableArray *choice = [self getSelectedRows:txtFileContent];
         [menuController setSelectedArray:choice];
-        //NSLog(@"-----choice-----\n%@", choice);
+        NSLog(@"-----choice-----\n%@", choice);
+        NSLog(@"-----selectedArray-----\n%@", menuController.selectedArray);
         
         [fileListTable reloadData];
         //[horizontal reloadData];
@@ -281,6 +281,7 @@
 ////////////////////////////////////////////////////////////
 -(void) menuDone
 {
+    [self saveMenuChoice];
     [readFile moveToTrash:nowFileName.text];
     [self showFileList];
     [readFile setFileOpened:nil];
@@ -294,6 +295,7 @@
     NSString *name = [readFile getNextFileName];
     NSLog(@"file name %@",name);
     if (name) {
+        [self saveMenuChoice];
         NSString *txtFileContent = [readFile readFromFileWithName:name];
         //NSLog(@"-----txtFileContent-----\n%@", txtFileContent);
         
@@ -325,4 +327,8 @@
      
 }
 
+- (IBAction)cancel:(UIStoryboardSegue*)sender
+{
+    [self showFileList];
+}
 @end

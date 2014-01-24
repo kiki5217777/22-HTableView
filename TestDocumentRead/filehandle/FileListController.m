@@ -50,57 +50,7 @@
     self.listData = nil;
     self.mainViewId = nil;
 }
-/*
--(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-{
-	return 1;
-}
 
--(NSInteger) tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section
-{
-	return [listData count];
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
-    if (cell == nil) {
-        //cell = [[UITableViewCell alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:@"MyIdentifier"];
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyIdentifier"];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@" ,[listData objectAtIndex:indexPath.row]];
-    return cell;
-}
-
-#pragma mark 選取後的處理動作
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	NSUInteger row = [indexPath row];
-    //NSString *rowValue = [listData objectAtIndex:row];
-    //傳送訊息
-    NSDictionary *dataDict = [NSDictionary dictionaryWithObject:[listData objectAtIndex:row] 
-                                                         forKey:@"fileName"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"show content" object:self userInfo:dataDict];
-
-    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return UITableViewCellEditingStyleDelete;
-    
-}
-
-- (void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle 
-forRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-    if(editingStyle == UITableViewCellEditingStyleDelete) {		
-        //Delete the object from the table.
-		[listData removeObjectAtIndex:indexPath.row];
-        [tv deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
-}
-*/
 
 #pragma mark -
 #pragma mark Optional EasyTableView delegate methods for section headers and footers
@@ -144,6 +94,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 	else
 		label.backgroundColor = [[UIColor orangeColor] colorWithAlphaComponent:0.3];
 	
+    //選取動畫
 	//UIImageView *borderView		= [[UIImageView alloc] initWithFrame:label.bounds];
     
 	//borderView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -174,7 +125,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     label.adjustsFontSizeToFitWidth=YES;
 	
     UIImageView *imageView =(UIImageView *)[view viewWithTag:IMAGE_TAG];
-    UIImage *image =[readimage ReadFromImageFileWithName:indexPath.row];
+    //UIImage *image =[readimage ReadFromImageFileWithName:indexPath.row];
+    UIImage *image = [readimage loadImageWithName:label.text];
     imageView.image = image;
     imageView.frame = CGRectMake(50, 10, 160, 230);
     

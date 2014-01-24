@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface menuCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end

@@ -14,8 +14,6 @@
 #import "EasyTableView.h"
 
 
-#define SPLITSTRING @"\n-&*()----------------()&&&&--------\n"
-
 @interface ViewController : UIViewController
 <UIGestureRecognizerDelegate> 
 {
@@ -44,5 +42,5 @@
 -(void) setMenuContent:(NSString*) content;
 -(void) setFileListTableContent:(NSMutableArray*) content;
 -(NSString*) getRealContent:(NSString*)content;
-- (IBAction)handleSwipe:(UISwipeGestureRecognizer *)sender;
+
 @end
